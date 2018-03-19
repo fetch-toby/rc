@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: fio-rr
+  name: fio-rr
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: fio-rr
+  template:
+    metadata:
+      labels:
+        app: fio-rr
+    spec:
+      containers:
+      - image: saye16/fio-rr
+        name: fio-rr
+        volumeMounts:
+        - mountPath: /data
+          name: myvol
+      volumes:
+      - name: myvol
+        hostPath:
+         path: /yolo/rr
+         type: Directory
